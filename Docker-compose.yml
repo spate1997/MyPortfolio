@@ -1,21 +1,23 @@
 version: "3"
 services:
   backend:
-    build:
-      context: ./backend
-      dockerfile: Dockerfile
+    build: ./backend
+    command: python manage.py runserver 0.0.0.0:8000
     volumes:
       - ./backend:/app
     ports:
-      - 8000:8000
+      - "8000:8000"
     depends_on:
       - db
+    environment:
+      - IN_DOCKER=1
   frontend:
     build:
       context: ./frontend
       dockerfile: Dockerfile
     volumes:
       - ./frontend:/app
+      - /app/node_modules
     ports:
       - 3000:3000
     depends_on:

@@ -1,14 +1,6 @@
-# Use an official Node.js runtime as the base image
-FROM node:14
-
-# Set the working directory in the container
+FROM node:latest as build
 WORKDIR /app
-
-# Copy the React project into the container
-COPY . .
-
-# Install dependencies
+COPY package*.json ./
 RUN npm install
-
-# Set the command to start the React development server
+COPY . ./
 CMD ["npm", "start"]
